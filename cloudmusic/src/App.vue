@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 .icon{
-  widows: 20px;
-  height: 20px;
+  width: 0.4rem;
+  height: 0.4rem;
 }
 </style>

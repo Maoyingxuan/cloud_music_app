@@ -1,13 +1,14 @@
 <template>
-  <div class="home">
-    <svg class = "icon" aria-hidden="true">
-      <use xlink:href = "#icon-wangyiyunyinle"></use>
-    </svg>
-  </div>
+  <TopNav/>
+
 </template>
 
-<script lang="ts">
+<script>
+import TopNav from '@/components/home/TopNav.vue'
 export default{
-
+name:"home",
+components:{
+  TopNav,
+}
 }
 </script>
