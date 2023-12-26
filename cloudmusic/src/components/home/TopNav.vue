@@ -2,8 +2,8 @@
     <div class = "topNav">
         <div class="topleft">
             <svg class = "icon" aria-hidden="true">
-      <use xlink:href = "#icon-danlieliebiao"></use>
-    </svg>
+            <use xlink:href = "#icon-danlieliebiao"></use>
+            </svg>
         </div>
             
     <div class="topContent">
