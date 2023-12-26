@@ -26,6 +26,7 @@
         padding: 10px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
     }
     .topContent{
@@ -38,5 +39,9 @@
         }
         .active{
             font-weight: 900;
+        }
+         .icon {
+          width: 0.4rem;
+          height: 0.4rem;
         }
 </style>

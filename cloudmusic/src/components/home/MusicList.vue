@@ -6,7 +6,8 @@
         </div>
         <div class = "musicContent">
             <van-swipe :loop="false" :width="150" class = "swiper" :show-indicators="false">
-            <van-swipe-item v-for="item in musicList" :key = "item">
+            <van-swipe-item v-for="item in state.musicList" :key = "item">
+                <router-link :to = "{path:'/MusicListItem',query:{id:item.id}}">
                 <img :src="item.picUrl" alt="">
                 <span class = "playCount">
                     <svg class = "icon" aria-hidden="true">
@@ -17,6 +18,7 @@
                 <span class = "name">
                     {{item.name}}
                 </span>
+                </router-link>
             </van-swipe-item>
         </van-swipe>
 
@@ -25,28 +27,24 @@
 </template>
 <script>
 import {getMusicList} from '@/request/api/home'
+import {reactive , onMounted} from 'vue'
 export default{
-    data(){
-        return{
+    setup(){
+        const state = reactive({
             musicList:[]
-        }
-    },
-    methods:{
-        async getMusicList(){
-            let res = await getMusicList()
-            this.musicList = res.data.result
-        },
-        changeCount:function(num){
+        })
+        function changeCount(num){
             if(num>=100000000){
                 return(num/100000000).toFixed(1)+'亿'
             }else if(num>=10000){
                 return(num/10000).toFixed(1)+'万'
             }
-        }        
-    },
-    mounted()
-    {
-        this.getMusicList()
+        }     
+    onMounted(async()=>{
+        let res = await getMusicList()
+        state.musicList = res.data.result
+    })
+    return {state,changeCount}
     }
 }
 </script>
