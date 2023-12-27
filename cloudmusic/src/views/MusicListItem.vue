@@ -1,24 +1,34 @@
 <template>
-    <div>歌单详情页</div>
+    <div></div>
+    <MLITop :playList = "state.playList" />
 </template>
 <script>
 // import MusicList from '@/components/home/MusicList.vue'
 import { useRoute } from 'vue-router'
 import { reactive, onMounted } from "vue"
 import {getMusicItem} from '@/request/api/musicItem.js'
+import MLITop from '@/components/MusicItem/MLITop.vue'
 export default ({
     setup() {
         const state = reactive({
             playList:[]
         })
         onMounted(async ()=>{
-            // console.log(useRoute());
+            try{
             let id = useRoute().query.id
-            // console.log(id);
             let res = await getMusicItem(id)
-            state.playList = res.data.playList
+            console.log(res.data.playlist);
+            state.playList = res.data.playlist
+            sessionStorage.setItem('itemDetail',JSON.stringify(state))  
+            }catch(error){
+                log(error)
+            }
+            
         })
         return {state}
     },
+    components:{
+        MLITop
+    }
 })
 </script>
