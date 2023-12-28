@@ -21,7 +21,7 @@ export default ({
             state.playList = res.data.playlist
             sessionStorage.setItem('itemDetail',JSON.stringify(state))  
             }catch(error){
-                log(error)
+                console.log(error)
             }
             
         })
