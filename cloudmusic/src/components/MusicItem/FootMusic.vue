@@ -8,17 +8,20 @@
       </div>
     </div>
     <div class="footerRight">
+        <div class = "srcbox" >
             <svg @click="play" class = "icon" aria-hidden="true" v-if="isbtnShow">
             <use xlink:href = "#icon-bofang"></use>
             </svg>
-            <svg @click="pause" class = "icon" aria-hidden="true" v-else>
+            <svg @click="play"  class = "icon" aria-hidden="true" v-else>
             <use xlink:href = "#icon-zanting"></use>
             </svg>
+        </div>
+            
             <svg class = "icon" aria-hidden="true">
             <use xlink:href = "#icon-danlieliebiao"></use>
             </svg>
     </div>
-    <audio ref="audio" :src=" `https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
+    <audio ref="audio"   :src=" `https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
     </div>
 </template>
 <script>
@@ -27,24 +30,39 @@ export default {
         mounted(){
             console.log(this.$refs);
         },
-    methods:{
-        play:function()
-        {
-            this.$refs.audio.play()
-            this.updateisbtnShow(false)
-            console.log(this.isbtnShow);
-        },
-        pause:function()
-        {
-            this.$refs.audio.pause()
-            this.updateisbtnShow(true)
-            console.log(this.isbtnShow);
-        },
+        methods:{
+    play: function () {
+      // 判断音乐是否播放
+      console.log("1");
+      if (this.$refs.audio.paused) {
+        this.$refs.audio.play();
+        this.updateisbtnShow(false);
+        // this.updateTime(); //播放就调用函数进行传值
+      } else {
+        this.$refs.audio.pause();
+        this.updateisbtnShow(true);
+        // clearInterval(this.interVal); //暂停清除定时器
+      }
+    },
             ...mapMutations(['updateisbtnShow'])
     },
     computed:{
             ...mapState(['playList','playListIndex','isbtnShow'])
         },
+        watch:{
+            playListIndex:function(){
+                this.$refs.audio.autoplay = true
+                if(this.$refs.audio.paused){
+                    this.updateisbtnShow(false)
+                }
+            },
+            playList: function () {
+                if (this.isbtnShow) {
+                    this.$refs.audio.play();
+                    this.updateisbtnShow(false);
+      }
+    },
+        }
 
 }
 </script>

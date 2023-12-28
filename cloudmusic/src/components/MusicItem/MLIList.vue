@@ -41,11 +41,20 @@
 </template>
 <script>
 
+import {mapMutations} from 'vuex'
 export default {
     setup(props) {
         console.log(props);
     },
-    props:['musicList','subscribedCount']
+    props:['musicList','subscribedCount'],
+    methods:{
+        playMusic:function(i){
+            this.updatePlayList(this.musicList)
+            this.updatePlayListIndex(i)
+        },
+    ...mapMutations(['updatePlayList','updatePlayListIndex'])
+    },
+    
 }
 </script>
 <style lang="less" scoped>

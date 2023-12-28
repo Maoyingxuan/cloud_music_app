@@ -21,6 +21,14 @@ export default createStore({
     updateisbtnShow:function(state,value){
       state.isbtnShow = value
   },
+  updatePlayList:function(state,value){
+    {
+      state.playList = value
+    }
+  },
+  updatePlayListIndex:function(state,value){
+    state.playListIndex = value
+  }
 },
   actions: {
   },
