@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    FootMusic: typeof import('./src/components/MusicItem/FootMusic.vue')['default']
     IconList: typeof import('./src/components/home/IconList.vue')['default']
     MLIList: typeof import('./src/components/MusicItem/MLIList.vue')['default']
     MLITop: typeof import('./src/components/MusicItem/MLITop.vue')['default']
@@ -15,6 +16,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SwiperTop: typeof import('./src/components/home/SwiperTop.vue')['default']
     TopNav: typeof import('./src/components/home/TopNav.vue')['default']
+    VanPopup: typeof import('vant/es')['Popup']
     VanSwipe: typeof import('vant/es')['Swipe']
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
   }
