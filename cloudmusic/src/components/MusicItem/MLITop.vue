@@ -76,9 +76,12 @@ export default ({
     // console.log(props);
     // 通过props进行传值，判断如果数据拿不到，就获取sessionStorage中的
     // props.playList.creator=""
+    // console.log(props.playList.creator);
     if((props.playList.creator="")){
+    // console.log(sessionStorage.getItem().playList);  
       props.playList.creator = JSON.parse(sessionStorage.getItem().playList).creator
     }
+    console.log(props.playList.creator)
     // 对播放量的处理
     function changeCount(num) {
       if (num >= 100000000) {
