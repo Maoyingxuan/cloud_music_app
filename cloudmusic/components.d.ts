@@ -11,6 +11,7 @@ declare module 'vue' {
     IconList: typeof import('./src/components/home/IconList.vue')['default']
     MLIList: typeof import('./src/components/MusicItem/MLIList.vue')['default']
     MLITop: typeof import('./src/components/MusicItem/MLITop.vue')['default']
+    MusicDetail: typeof import('./src/components/MusicItem/MusicDetail.vue')['default']
     MusicList: typeof import('./src/components/home/MusicList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

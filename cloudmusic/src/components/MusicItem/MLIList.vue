@@ -156,10 +156,12 @@ export default {
          .bofang{
             position: absolute;
             left: 0;
+            z-index: -1;
           }
          .liebiao{
             position: absolute;
             right: 0;
+            z-index: 1;
           }
       }
     }

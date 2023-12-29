@@ -1,6 +1,6 @@
 <template>
     <div class="FooterMusic">
-        <div class="footerLeft">
+        <div class="footerLeft" @click="updateDetailShow">
       <img :src="playList[playListIndex].al.picUrl" alt="" />
       <div>
         <p>{{playList[playListIndex].al.name}}</p>
@@ -22,10 +22,14 @@
             </svg>
     </div>
     <audio ref="audio"   :src=" `https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
+    <van-popup class = "popup" v-model:show="detailShow" position="right" :style = "{ height:'100%', width:'100%'}">
+    <MusicDetail/>
+    </van-popup>
     </div>
 </template>
 <script>
 import {mapMutations, mapState} from 'vuex'
+import {MusicDetail} from '@/components/MusicItem/MusicDetail.vue'
 export default {
         mounted(){
             console.log(this.$refs);
@@ -33,7 +37,7 @@ export default {
         methods:{
     play: function () {
       // 判断音乐是否播放
-      console.log("1");
+    //   console.log("1");
       if (this.$refs.audio.paused) {
         this.$refs.audio.play();
         this.updateisbtnShow(false);
@@ -44,10 +48,10 @@ export default {
         // clearInterval(this.interVal); //暂停清除定时器
       }
     },
-            ...mapMutations(['updateisbtnShow'])
+            ...mapMutations(['updateisbtnShow','updateDetailShow'])
     },
     computed:{
-            ...mapState(['playList','playListIndex','isbtnShow'])
+            ...mapState(['playList','playListIndex','isbtnShow','detailShow'])
         },
         watch:{
             playListIndex:function(){
@@ -62,7 +66,8 @@ export default {
                     this.updateisbtnShow(false);
       }
     },
-        }
+        },
+        components:{MusicDetail}
 
 }
 </script>
@@ -99,6 +104,9 @@ export default {
       width: 0.6rem;
       height: 0.6rem;
     }
+  }
+  .popup{
+      z-index: 999;
   }
 }
 </style>
