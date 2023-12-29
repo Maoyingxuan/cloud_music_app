@@ -102,7 +102,7 @@ export default ({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: -1;
+  z-index: 1;
 
   position: relative;
   .itemLeft,
@@ -118,14 +118,14 @@ export default ({
       color: #fff;
     }
     .icon {
-      fill: #fff; 
+      fill: #fff;z-index: 1;
     }
   }
   .bgimg {
     width: 100%;
     height: 11rem;
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     filter: blur(30px);
   }
 }
@@ -146,19 +146,19 @@ export default ({
       height: 2.6rem;
       border-radius: 0.2rem;
       position: absolute;
-      z-index: -1;
+      z-index:1;
     }
     .palyCount {
       position: absolute;
       right: 0.1rem;
       margin-top: 0.1rem;
-      z-index: -1;
+      z-index: 1;
       .icon {
         width: 0.26rem;
         height: 0.26rem;
         margin-top: -0.02rem;
         vertical-align: middle;
-        z-index: -1;
+        z-index: 1;
       }
       span {
         font-size: 0.26rem;

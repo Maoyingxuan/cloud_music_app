@@ -23,4 +23,7 @@ export default {
 a{
   color:black;
 }
+.FootMusic{
+  z-index: 2;
+}
 </style>

@@ -90,7 +90,7 @@ export default{
     }
     .playCount {
         position: absolute;
-        z-index: 100;
+        z-index: 1;
         right: 0.3rem;
         color: white;
         margin-top: 0.06rem;

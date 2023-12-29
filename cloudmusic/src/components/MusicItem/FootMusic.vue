@@ -8,14 +8,14 @@
       </div>
     </div>
     <div class="footerRight">
-        <div class = "srcbox" >
+        
             <svg @click="play" class = "icon" aria-hidden="true" v-if="isbtnShow">
             <use xlink:href = "#icon-bofang"></use>
             </svg>
             <svg @click="play"  class = "icon" aria-hidden="true" v-else>
             <use xlink:href = "#icon-zanting"></use>
             </svg>
-        </div>
+        
             
             <svg class = "icon" aria-hidden="true">
             <use xlink:href = "#icon-danlieliebiao"></use>
@@ -23,7 +23,11 @@
     </div>
     <audio ref="audio"   :src=" `https://music.163.com/song/media/outer/url?id=${playList[playListIndex].id}.mp3`"></audio>
     <van-popup class = "popup" v-model:show="detailShow" position="right" :style = "{ height:'100%', width:'100%'}">
-    <MusicDetail/>
+    <MusicDetail
+    :musicList="playList[playListIndex]"
+    :play="play"
+    :isbtnShow="isbtnShow"
+    />
     </van-popup>
     </div>
 </template>
@@ -73,6 +77,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .FooterMusic {
+    z-index: 2;
   width: 100%;
   height: 1.4rem;
   background-color: #fff;
@@ -103,10 +108,11 @@ export default {
     .icon {
       width: 0.6rem;
       height: 0.6rem;
+      z-index: 1
     }
   }
-  .popup{
-      z-index: 999;
+  .MusicDetail{
+      z-index: 3;
   }
 }
 </style>

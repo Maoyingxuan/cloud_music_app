@@ -156,7 +156,7 @@ export default {
          .bofang{
             position: absolute;
             left: 0;
-            z-index: -1;
+            z-index: 1;
           }
          .liebiao{
             position: absolute;
