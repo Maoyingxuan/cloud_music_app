@@ -24,9 +24,9 @@
     </div>
     
         <!-- 显示歌词 -->
-        <div class = 'musicLyric'>
+        <div class = 'musicLyric' ref = "musicLyric">
           <!-- {{lyricList.lyric}} -->
-          <p v-for = "item in lyric" :key = "item">
+          <p v-for = "item in lyric" :key = "item" :class = "{active:(currentTime*1000>=item.time && currentTime*1000 <item.pre )}">
             {{item.lrc}}
           </p>
         </div>
@@ -95,7 +95,7 @@ export default{
       ...mapMutations(['updateDetailShow'])
     },
     computed:{
-      ...mapState(['lyricList']),
+      ...mapState(['lyricList','currentTime']),
       lyric:function()
       {
         let arr;
@@ -126,7 +126,16 @@ export default{
       }
       return arr
       }
-    }
+    },
+    watch:{
+        currentTime:function(){
+        let p = document.querySelector("p.active")
+        if(p.offsetTop>300){
+          this.$refs.musicLyric.scrollTop = p.offsetTop - 300
+        }
+        // console.log([p]);
+      }
+    },
 }
 
 

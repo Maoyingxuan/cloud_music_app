@@ -11,6 +11,7 @@ export default createStore({
         pic_str: "109951165076380471"
       },
       id: 1456890009,
+      name:"罗生门（Follow）",
       ar:[{
         name:'Wiz_H张子豪'
       }]
@@ -18,7 +19,8 @@ export default createStore({
     playListIndex:0, //默认下标0
     isbtnShow:true,//播放
     detailShow:false,//歌曲详情页
-    lyricList:{}
+    lyricList:{},
+    currentTime:0 ,
   },
   getters: {
   },
@@ -41,6 +43,11 @@ export default createStore({
   },
   updateLyricList:function(state,value){
     state.lyricList = value
+  },
+  updateCurrentTime:function(state,value){
+    state.currentTime = value
+    console.log(state.currentTime);
+    
   }
 },
   actions: {

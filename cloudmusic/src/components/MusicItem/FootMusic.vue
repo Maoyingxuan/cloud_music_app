@@ -3,7 +3,7 @@
         <div class="footerLeft" @click="updateDetailShow">
       <img :src="playList[playListIndex].al.picUrl" alt="" />
       <div>
-        <p>{{playList[playListIndex].al.name}}</p>
+        <p>{{playList[playListIndex].name}}</p>
         <span>横滑切换上下首哦</span>
       </div>
     </div>
@@ -35,6 +35,11 @@
 import {mapMutations, mapState} from 'vuex'
 import {MusicDetail} from '@/components/MusicItem/MusicDetail.vue'
 export default {
+        data(){
+          return{
+            interVal:0
+          }
+        },
         mounted(){
             console.log(this.$refs);
             this.$store.dispatch("getLyric",this.playList[this.playListIndex].id)
@@ -50,14 +55,19 @@ export default {
       if (this.$refs.audio.paused) {
         this.$refs.audio.play();
         this.updateisbtnShow(false);
-        // this.updateTime(); //播放就调用函数进行传值
+        this.updateTime()//播放就调用函数进行传值
       } else {
         this.$refs.audio.pause();
         this.updateisbtnShow(true);
-        // clearInterval(this.interVal); //暂停清除定时器
+        clearInterval(this.interVal); //暂停清除定时器
       }
     },
-            ...mapMutations(['updateisbtnShow','updateDetailShow'])
+    updateTime:function(){
+      this.interVal = setInterval(()=>{
+        this.updateCurrentTime(this.$refs.audio.currentTime)
+      },1000)
+    },
+            ...mapMutations(['updateisbtnShow','updateDetailShow','updateCurrentTime'])
     },
     computed:{
             ...mapState(['playList','playListIndex','isbtnShow','detailShow'])
