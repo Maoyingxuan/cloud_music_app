@@ -22,9 +22,12 @@
             </svg>
         </div>
     </div>
-    <div class="detailContent">
-        中间
+    
+        <!-- 显示歌词 -->
+        <div class = 'musicLyric'>
+          {{lyricList.lyric}}
         </div>
+        
         <!-- 底部组件分为三部分 -->
     <div class = "detailFooter"> 
       <div class = "footerTop">
@@ -69,7 +72,7 @@
 </template>
 <script>
 import { Vue3Marquee } from 'vue3-marquee'
-import { mapMutations } from 'vuex'
+import { mapMutations,mapState } from 'vuex'
 // import 'vue3-marquee/dist/style.css'
 export default{
     components: {
@@ -87,6 +90,9 @@ export default{
       // console.log("1");
     },
       ...mapMutations(['updateDetailShow'])
+    },
+    computed:{
+      ...mapState(['lyricList'])
     }
 }
 
@@ -129,15 +135,23 @@ export default{
     }
   }
 }
-.detailContent {
+.musicLyric {
   width: 100%;
-  height: 9rem;
+  height: 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  margin-top: 0.2rem;
+  overflow: scroll;
+  p {
+    color: rgb(190, 181, 181);
+    margin-bottom: 0.3rem;
+  }
+  .active {
+    color: #fff;
+    font-size: 0.5rem;
+  }
 }
-
 .detailFooter {
   width: 100%;
   height: 3rem;

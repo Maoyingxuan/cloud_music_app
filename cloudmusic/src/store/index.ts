@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+import {getMusicLyric} from '@/request/api/musicItem.js'
 export default createStore({
   state: {
     playList:[{
@@ -17,7 +17,8 @@ export default createStore({
     }],
     playListIndex:0, //默认下标0
     isbtnShow:true,//播放
-    detailShow:false//歌曲详情页
+    detailShow:false,//歌曲详情页
+    lyricList:{}
   },
   getters: {
   },
@@ -34,13 +35,20 @@ export default createStore({
     state.playListIndex = value
   },
   updateDetailShow:function(state){
-    console.log("2");    
+    // console.log("2");    
     state.detailShow = !state.detailShow
-    console.log(state.detailShow);
-    
+    // console.log(state.detailShow);
+  },
+  updateLyricList:function(state,value){
+    state.lyricList = value
   }
 },
   actions: {
+    getLyric:async function(context,value){
+      let res = await getMusicLyric(value)
+      console.log(res);
+      context.commit("updateLyricList",res.data.lrc)
+    }
   },
   modules: {
   }
