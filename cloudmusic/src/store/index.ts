@@ -4,13 +4,16 @@ export default createStore({
   state: {
     playList:[{
       al:{
-        id: 131343771,
-        name: "9¾",
-        pic: 109951166541156980,
-        picUrl: "https://p1.music.126.net/sHq_J8BKeBdu1YFedO8Ejw==/109951166541156978.jpg",
-        pic_str: "109951166541156978"
+        id: 91237927,
+        name: "罗生门（Follow）",
+        pic: 109951165076380460,
+        picUrl: "https://p2.music.126.net/yN1ke1xYMJ718FiHaDWtYQ==/109951165076380471.jpg",
+        pic_str: "109951165076380471"
       },
-      id: 1857534437,
+      id: 1456890009,
+      ar:[{
+        name:'Wiz_H张子豪'
+      }]
     }],
     playListIndex:0, //默认下标0
     isbtnShow:true,//播放
