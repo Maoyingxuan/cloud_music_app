@@ -25,7 +25,10 @@
     
         <!-- 显示歌词 -->
         <div class = 'musicLyric'>
-          {{lyricList.lyric}}
+          <!-- {{lyricList.lyric}} -->
+          <p v-for = "item in lyric" :key = "item">
+            {{item.lrc}}
+          </p>
         </div>
         
         <!-- 底部组件分为三部分 -->
@@ -92,7 +95,37 @@ export default{
       ...mapMutations(['updateDetailShow'])
     },
     computed:{
-      ...mapState(['lyricList'])
+      ...mapState(['lyricList']),
+      lyric:function()
+      {
+        let arr;
+              if (this.lyricList.lyric) {
+        arr = this.lyricList.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
+          let min = item.slice(1, 3);
+          let sec = item.slice(4, 6);
+          let mill = item.slice(7, 10);
+          let lrc = item.slice(11, item.length);
+          let time =
+            parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill);
+          if (isNaN(Number(mill))) {
+            mill = item.slice(7, 9);
+            lrc = item.slice(10, item.length);
+            time =
+              parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill);
+          }
+          // console.log(min,sec,Number(mill),lrc);
+          return { min, sec, mill, lrc, time };
+        });
+        arr.forEach((item, i) => {
+          if (i === arr.length - 1 || isNaN(arr[i + 1].time)) {
+            item.pre = 100000;
+          } else {
+            item.pre = arr[i + 1].time;
+          }
+        });
+      }
+      return arr
+      }
     }
 }
 
