@@ -151,13 +151,7 @@ export default{
         }
       }
       if(newValue===this.duration){
-       
-        if(this.playListIndex===this.playList.length-1){
-          this.updatePlayListIndex(0);
-          this.play()
-        }else{
-           this.updatePlayListIndex(this.playListIndex+1);
-        }
+       this.goPlay(1)
       }
       // console.log([this.$refs.musicLyric])
     },
