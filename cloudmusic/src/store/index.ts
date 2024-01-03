@@ -52,6 +52,7 @@ export default createStore({
   },
   updateDuration:function(state,value){
     state.duration = value
+    console.log(state.duration);
   }
 },
   actions: {

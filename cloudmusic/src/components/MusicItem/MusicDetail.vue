@@ -51,7 +51,7 @@
       </div>
       <div class = "footerContent">
         <!-- 进度条 -->
-        <input type="range" class="range" min = "0" max = "duration" v-model="currentTime" step ="0.05">
+        <input type="range" class="range" min="0" :max="duration" v-model="currentTime" step ="0.05">
       </div>
       <div class = "footer">
         <svg class="icon" aria-hidden="true">
@@ -142,21 +142,25 @@ export default{
       }
     },
     watch:{
-        currentTime:function(){
-        let p = document.querySelector("p.active")
-        if(p.offsetTop>300){
-          this.$refs.musicLyric.scrollTop = p.offsetTop - 300
-        }
-        if(newValue === this.duration){
-          if(this.playListIndex === this.playListIndex -1)
-          {
-            this.updatePlayListIndex(0)
-            this.play()
-          }else{
-            this.updatePlayListIndex(this.playListIndex+1)
-          }
+       currentTime: function (newValue) {
+      let p = document.querySelector("p.active");
+      // console.log([p]);
+      if (p) {
+        if (p.offsetTop > 300) {
+          this.$refs.musicLyric.scrollTop = p.offsetTop - 300;
         }
       }
+      if(newValue===this.duration){
+       
+        if(this.playListIndex===this.playList.length-1){
+          this.updatePlayListIndex(0);
+          this.play()
+        }else{
+           this.updatePlayListIndex(this.playListIndex+1);
+        }
+      }
+      // console.log([this.$refs.musicLyric])
+    },
     },
 }
 

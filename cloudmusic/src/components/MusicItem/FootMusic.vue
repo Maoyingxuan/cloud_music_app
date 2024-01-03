@@ -65,7 +65,6 @@ export default {
       }
     },
     addDuration:function(){
-        this.updateDuration(this.$refs.audio.duration)
     },
     updateTime:function(){
       this.interVal = setInterval(()=>{
@@ -80,6 +79,7 @@ export default {
         watch:{
             playListIndex:function(){
                 this.$refs.audio.autoplay = true
+                this.updateDuration(this.$refs.audio.duration)
                 if(this.$refs.audio.paused){
                     this.updateisbtnShow(false)
                 }
