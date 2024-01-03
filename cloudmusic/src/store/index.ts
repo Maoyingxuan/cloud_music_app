@@ -21,6 +21,7 @@ export default createStore({
     detailShow:false,//歌曲详情页
     lyricList:{},
     currentTime:0 ,
+    duration:0,
   },
   getters: {
   },
@@ -46,8 +47,11 @@ export default createStore({
   },
   updateCurrentTime:function(state,value){
     state.currentTime = value
-    console.log(state.currentTime);
+    // console.log(state.currentTime);
     
+  },
+  updateDuration:function(state,value){
+    state.duration = value
   }
 },
   actions: {

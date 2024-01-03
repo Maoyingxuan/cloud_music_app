@@ -49,10 +49,13 @@
             </svg>
 
       </div>
-      <div class = "footerContent"></div>
+      <div class = "footerContent">
+        <!-- 进度条 -->
+        <input type="range" class="range" min = "0" max = "duration" v-model="currentTime" step ="0.05">
+      </div>
       <div class = "footer">
         <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-shangyishoushangyige"></use>
+        <use xlink:href="#icon-shangyishoushangyige" @click="goPlay(-1)"></use>
       </svg>
       <svg
         class="icon bofang"
@@ -66,7 +69,7 @@
         <use xlink:href="#icon-zanting"></use>
       </svg>
       <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-xiayigexiayishou"></use>
+        <use xlink:href="#icon-xiayigexiayishou" @click="goPlay(1)"></use>
       </svg>
       </div>
 
@@ -83,19 +86,30 @@ export default{
   },
     mounted()
     {
-        console.log(this.musicList);
+        // console.log(this.musicList);
+        this.addDuration()
     },
-    props:['musicList','isbtnShow','play'],
+    props:['musicList','isbtnShow','play',"addDuration"],
     methods:{
         backHome: function () {
       // this.isLyricShow = false;
       this.updateDetailShow();
       // console.log("1");
     },
-      ...mapMutations(['updateDetailShow'])
+      goPlay: function (num) {
+      let index = this.playListIndex + num;
+      if (index < 0) {
+        index = this.playList.length - 1;
+      } else if (index == this.playList.length) {
+        index = 0;
+      }
+      this.updatePlayListIndex(index);
     },
+      ...mapMutations(['updateDetailShow','updatePlayListIndex'])
+    },
+    
     computed:{
-      ...mapState(['lyricList','currentTime']),
+      ...mapState(['lyricList','currentTime','playListIndex','playList','duration']),
       lyric:function()
       {
         let arr;
@@ -133,7 +147,15 @@ export default{
         if(p.offsetTop>300){
           this.$refs.musicLyric.scrollTop = p.offsetTop - 300
         }
-        // console.log([p]);
+        if(newValue === this.duration){
+          if(this.playListIndex === this.playListIndex -1)
+          {
+            this.updatePlayListIndex(0)
+            this.play()
+          }else{
+            this.updatePlayListIndex(this.playListIndex+1)
+          }
+        }
       }
     },
 }
@@ -226,6 +248,8 @@ export default{
     align-items: center;
     .icon {
       fill: rgb(245, 234, 234);
+      width:0.8rem;
+      height:0.8rem;
     }
     .bofang {
       width: 1rem;

@@ -27,6 +27,7 @@
     :musicList="playList[playListIndex]"
     :play="play"
     :isbtnShow="isbtnShow"
+    :addDuration="addDuration"
     />
     </van-popup>
     </div>
@@ -47,6 +48,7 @@ export default {
         updated()
         {
             this.$store.dispatch("getLyric",this.playList[this.playListIndex].id)
+            this.addDuration()
         },
         methods:{
     play: function () {
@@ -62,15 +64,18 @@ export default {
         clearInterval(this.interVal); //暂停清除定时器
       }
     },
+    addDuration:function(){
+        this.updateDuration(this.$refs.audio.duration)
+    },
     updateTime:function(){
       this.interVal = setInterval(()=>{
         this.updateCurrentTime(this.$refs.audio.currentTime)
       },1000)
     },
-            ...mapMutations(['updateisbtnShow','updateDetailShow','updateCurrentTime'])
+            ...mapMutations(['updateisbtnShow','updateDetailShow','updateCurrentTime','updateDuration'])
     },
     computed:{
-            ...mapState(['playList','playListIndex','isbtnShow','detailShow'])
+            ...mapState(['playList','playListIndex','isbtnShow','detailShow','duration'])
         },
         watch:{
             playListIndex:function(){
