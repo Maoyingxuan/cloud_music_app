@@ -7,20 +7,43 @@
     </div>
     <div class='searchHistory'>
         <p class="searchSpan">历史</p>
-        <span v-for="item in keyWorldList" :key='item' class="spanKey">
+        <span v-for="item in keyWorldList" :key='item' class="spanKey" @click="searchHistory(item)">
             {{item}}
         </span>
-        <svg class = "icon" aria-hidden="true"  @click="delHistory">
+        <svg class = "icon" aria-hidden="true"  @click="delHistory(data)">
             <use xlink:href = "#icon-shanchu"></use>
         </svg>
     </div>
+     <div class="itemList">
+      <div class="item" v-for="(item, i) in searchList" :key="i">
+        <div class="itemLeft" @click="updateIndex(item)">
+          <span class="leftSpan">{{ i + 1 }}</span>
+          <div>
+            <p>{{ item.name }}</p>
+            <span v-for="(item1, index) in item.artists" :key="index">{{
+              item1.name
+            }}</span>
+          </div>
+        </div>
+        <div class="itemRight">
+          <svg class="icon bofang" aria-hidden="true" v-if='item.mvid !=0'>
+            <use xlink:href="#icon-shipin"></use>
+          </svg>
+          <svg class="icon liebiao" aria-hidden="true">
+            <use xlink:href="#icon-liebiao"></use>
+          </svg>
+        </div>
+      </div>
+      </div>
 </template>
 <script>
+import { getSearchMusic } from "@/request/api/home.js";
 export default {
   data() {
     return {
       keyWorldList: [],
       searchKey: "",
+      searchList:[],
     };
   },
 mounted() {
@@ -29,7 +52,7 @@ mounted() {
       : [];
   },
   methods: {
-    enterKey:function () {
+    enterKey:async function () {
       if (this.searchKey !== "") {
         this.keyWorldList.unshift(this.searchKey);
         //   去重
@@ -39,16 +62,31 @@ mounted() {
           this.keyWorldList.splice(this.keyWorldList.length - 1, 1);
         }
         localStorage.setItem("keyWorldList", JSON.stringify(this.keyWorldList));
-        // let res = await getSearchMusic(this.searchKey);
-        // // console.log(res);
-        // this.searchList = res.data.result.songs;
+        let res = await getSearchMusic(this.searchKey);
+        // console.log(res);
+        this.searchList = res.data.result.songs;
+        console.log(this.searchList);
         this.searchKey = "";
       }
+    },
+    searchHistory:async function(data){
+      let res = await getSearchMusic(data);
+        // console.log(res);
+        this.searchList = res.data.result.songs;
+        console.log(this.searchList);
+        this.searchKey = "";
     },
     delHistory: function () {
       localStorage.removeItem("keyWorldList");
       this.keyWorldList = [];
     },
+        updateIndex:function(item){
+        item.al=item.album
+        item.al.picUrl=item.album.artist.img1v1Url
+        this.$store.commit("pushPlayList",item)
+        this.$store.commit("updatePlayListIndex",this.$store.state.playList.length-1)
+        
+    }
   },
 };
 </script>

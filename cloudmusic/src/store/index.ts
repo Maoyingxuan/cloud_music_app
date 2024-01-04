@@ -52,7 +52,10 @@ export default createStore({
   },
   updateDuration:function(state,value){
     state.duration = value
-    console.log(state.duration);
+    // console.log(state.duration);
+  },
+  pushPlayList:function(state,value){
+    state.playList.push(value)
   }
 },
   actions: {
